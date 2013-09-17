@@ -38,7 +38,7 @@ int main(int argc, char **argv){
 	exit(1);
 	}
 	
-	deg = atoi(argv[2]);
+	deg = atoi(argv[2])+1;
 	
 	if(deg<=0){
 		printf("Error!\n El grado del polinomio debe ser mayor a 0\n");
@@ -91,7 +91,7 @@ int main(int argc, char **argv){
 	
 	//print_matrix(F, num,2);
 	
-	/*Creación Matriz de valores y matriz GSL de salidas fi*/
+	/*Creación Matriz de valores G y matriz GSL de salidas fi*/
 	for(i=0;i<num;i++){
 		gsl_matrix_set (D, i, 0, (double)F[i*2+1]);
 		for(j=0;j<deg;j++){
@@ -100,6 +100,7 @@ int main(int argc, char **argv){
 	}
 	//print_matrixg(D,num,1);
 	
+	/*Paso de matriz de valores G a una matriz gsl*/
 	for(i=0;i<num;i++){
 		for(j=0;j<deg;j++){
 			gsl_matrix_set (H, i, j, G[i*deg+j]);
@@ -147,7 +148,17 @@ int main(int argc, char **argv){
 		printf("a_%d %f\n",i,gsl_matrix_get(M, i, 0));
 	}
 		
-	printf("%f\n",chi);
+	printf("chi %f\n",chi);
+	
+	gsl_matrix_free(Ff);
+	gsl_matrix_free(H);
+	gsl_matrix_free(HT);
+	gsl_matrix_free(D);
+	gsl_matrix_free(T);
+	gsl_matrix_free(T1);
+	gsl_matrix_free(UNO);
+	gsl_matrix_free(I);
+	gsl_matrix_free(M);
 	
 	return 0;
 }
